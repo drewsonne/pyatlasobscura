@@ -43,6 +43,8 @@ class pyatlasobscura.models.destinations.Place {
     + datePublished : str
     + dateModified : str
     + categories : pyatlasobscura.models.definitions.Category[]
+    + location: pyatlasobscura.models.definitions.Location
+    + nearby_places: pyatlasobscura.models.definitions.Location[]
 }
 
 class pyatlasobscura.models.destinations.Category {
