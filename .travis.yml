@@ -12,4 +12,4 @@ install:
 - pip install -e .
 
 script:
-  - pytest
+  - pytest --verbose
