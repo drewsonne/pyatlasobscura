@@ -25,3 +25,9 @@ print(place)
 ```
 
 See [examples](examples/basic.py) for more.
+
+## Reference
+
+Objects have the following structure
+
+![objects](docs/diagrams/pyatlasobscura.png)
