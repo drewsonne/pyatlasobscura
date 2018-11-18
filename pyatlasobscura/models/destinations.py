@@ -1,5 +1,6 @@
 import json
 import re
+from typing import List
 
 
 class JsonSerialisable(dict):
@@ -39,6 +40,10 @@ class Region(JsonSerialisable):
         super().__init__(client)
         self['name'] = dom.find('h2').get_text(strip=True)
         self['countries'] = [Country(client, self, d) for d in dom.findAll('a', {'class': 'detail-md'})]
+
+    @property
+    def countries(self) -> List['Country']:
+        return self['countries']
 
 
 class Country(JsonSerialisable):

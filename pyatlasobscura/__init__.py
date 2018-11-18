@@ -1,3 +1,5 @@
+from typing import Generator
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -21,7 +23,7 @@ class Client(object):
     def _build_url(self, path):
         return self.Endpoint + path
 
-    def regions(self):
+    def regions(self) -> Generator[Region, None, None]:
         if 'regions' not in self._cache:
             body = self.query('destinations')
             regions = body. \
