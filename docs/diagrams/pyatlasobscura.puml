@@ -28,13 +28,13 @@ class pyatlasobscura.models.destinations.Location {
 
 class pyatlasobscura.models.destinations.Region {
     + name : str
-    + countries : pyatlasobscura.models.destinations.Country[]
+    + countries : .Country[]
 }
 
 class pyatlasobscura.models.destinations.Country {
     + name : str
     + region : str
-    + places() : pyatlasobscura.models.destinations.Place[]
+    + places() : .Place[]
 }
 
 class pyatlasobscura.models.destinations.Place {
@@ -42,14 +42,14 @@ class pyatlasobscura.models.destinations.Place {
     + description : str
     + datePublished : str
     + dateModified : str
-    + categories : pyatlasobscura.models.definitions.Category[]
-    + location: pyatlasobscura.models.definitions.Location
-    + nearby_places: pyatlasobscura.models.definitions.Location[]
+    + categories : .Category[]
+    + location: .Location
+    + nearby_places: .Location[]
 }
 
 class pyatlasobscura.models.destinations.Category {
     + name : str
-    + places : pyatlasobscura.models.definitions.Place[]
+    + places : .Place[]
 }
 
 module *-- pyatlasobscura.Client
