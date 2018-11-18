@@ -3,7 +3,8 @@ python:
 - '3.5'
 - '3.6'
 - '3.7-dev'
-- 'pypy'
+- 'pypy3.5'
+- 'pypy3.6'
 
 matrix:
   fast_finish: true
