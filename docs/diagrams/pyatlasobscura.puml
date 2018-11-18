@@ -1,0 +1,68 @@
+@startuml
+scale 2160*1139
+set namespaceSeparator .
+
+
+class module {
+    + {static} pyatlasobscura.models.destination.Region[] destinations()
+}
+
+class pyatlasobscura.Client {
+    + __init__(pandas_mode: bool = True)
+    + query(path, args : dict = {}) : bs4.BeautifulSoup
+    + regions() : pyatlasobscura.models.destination.Region[]
+    + find_country(country_name: str) : pyatlasobscura.models.destination.Region
+}
+
+abstract class pyatlasobscura.models.JsonSerialisable {
+    + __init__(client : pyatlasobscura.Client)
+    + load()
+}
+
+class pyatlasobscura.models.destinations.Location {
+    + name : str
+    + coordinates : int[]
+    + country : str
+    + region : str
+}
+
+class pyatlasobscura.models.destinations.Region {
+    + name : str
+    + countries : pyatlasobscura.models.destinations.Country[]
+}
+
+class pyatlasobscura.models.destinations.Country {
+    + name : str
+    + region : str
+    + places() : pyatlasobscura.models.destinations.Place[]
+}
+
+class pyatlasobscura.models.destinations.Place {
+    + title : str
+    + description : str
+    + datePublished : str
+    + dateModified : str
+    + categories : pyatlasobscura.models.definitions.Category[]
+}
+
+class pyatlasobscura.models.destinations.Category {
+    + name : str
+    + places : pyatlasobscura.models.definitions.Place[]
+}
+
+module *-- pyatlasobscura.Client
+
+pyatlasobscura.models.JsonSerialisable <|-- pyatlasobscura.models.destinations.Region
+pyatlasobscura.models.JsonSerialisable <|-- pyatlasobscura.models.destinations.Country
+pyatlasobscura.models.JsonSerialisable <|-- pyatlasobscura.models.destinations.Place
+pyatlasobscura.models.JsonSerialisable <|-- pyatlasobscura.models.destinations.Location
+
+pyatlasobscura.models.destinations.Region *- pyatlasobscura.models.destinations.Country
+pyatlasobscura.models.destinations.Country *- pyatlasobscura.models.destinations.Place
+pyatlasobscura.models.destinations.Place *- pyatlasobscura.models.destinations.Location
+pyatlasobscura.models.destinations.Place *-- pyatlasobscura.models.destinations.Category
+pyatlasobscura.models.destinations.Category *-- pyatlasobscura.models.destinations.Place
+
+pyatlasobscura.Client *--- pyatlasobscura.models.destinations.Region
+
+@enduml

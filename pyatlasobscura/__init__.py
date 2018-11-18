@@ -5,23 +5,24 @@ from bs4 import BeautifulSoup
 
 from pyatlasobscura.models.destinations import Region
 
+class URL(str): pass
 
 class Client(object):
-    Endpoint = "https://www.atlasobscura.com/"
+    _endpoint = "https://www.atlasobscura.com/"
 
     def __init__(self, pandas_mode=False):
         self._cache = {}
         self._pandas_mode = pandas_mode
 
-    def query(self, path, args={}):
+    def query(self, path, args={}) -> BeautifulSoup:
         body = requests.get(self._build_url(path), params=args)
         return BeautifulSoup(
             markup=body.content.decode('utf-8', 'ignore'),
             features='html.parser'
         )
 
-    def _build_url(self, path):
-        return self.Endpoint + path
+    def _build_url(self, path: str):
+        return self._endpoint + path
 
     def regions(self) -> Generator[Region, None, None]:
         if 'regions' not in self._cache:
@@ -34,7 +35,7 @@ class Client(object):
         for region in regions:
             yield Region(self, region)
 
-    def find_country(self, country_name):
+    def find_country(self, country_name: str):
         for region in self.regions():
             for country in region.countries:
                 if country.name == country_name:
@@ -44,5 +45,5 @@ class Client(object):
 _client = Client()
 
 
-def destinations():
+def destinations() -> Generator[Region, None, None]:
     return _client.regions()

@@ -2,37 +2,20 @@ import json
 import re
 from typing import List
 
+from pyatlasobscura.models import JsonSerialisable
 
-class JsonSerialisable(dict):
-    def __init__(self, client):
-        super().__init__()
-        self._client = client
-        self._data = {}
 
-    def __getattr__(self, key):
-        # First, try to return from _response
-        try:
-            return self[key]
-        except KeyError:
-            pass
+class Location(JsonSerialisable):
+    def __init__(self, client, name, coordinates, country=None, region=None):
+        super().__init__(client)
+        self._lazy_load_all = lambda *a: None
+        self['name'] = name
+        self['coordinates'] = coordinates
+        if country is not None:
+            self['country'] = country
 
-        if key in self.lazy_load_facets:
-            getattr(self, '_load_' + key)()
-            return self[key]
-
-        # If that fails, return default behavior so we don't break Python
-        try:
-            return self.__dict__[key]
-        except KeyError:
-            raise AttributeError(key)
-
-    def __repr__(self):
-        return json. \
-            dumps(self, indent=4, ensure_ascii=False)
-
-    def load(self):
-        self._lazy_load_all()
-        return self
+        if region is not None:
+            self['region'] = region
 
 
 class Region(JsonSerialisable):
@@ -55,7 +38,11 @@ class Country(JsonSerialisable):
         self._href = a['href']
         self._sort_by_recent = False
 
-    def places(self, sort_by_recent=False, page_num='1'):
+    @property
+    def places(self):
+        return self.place_pages(False, '1')
+
+    def place_pages(self, sort_by_recent=False, page_num='1'):
 
         self._sort_by_recent = sort_by_recent
 
