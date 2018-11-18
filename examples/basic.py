@@ -5,10 +5,8 @@ print(destination)
 
 country = destination.countries[0]
 
-place = next(country.places())
+place = next(country.places)
 print(place)
-
-print(place.tags)
 
 print(place.categories)
 

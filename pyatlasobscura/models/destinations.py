@@ -2,10 +2,10 @@ import json
 import re
 from typing import List
 
-from pyatlasobscura.models import JsonSerialisable
+from pyatlasobscura.models import Model
 
 
-class Location(JsonSerialisable):
+class Location(Model):
     def __init__(self, client, name, coordinates, country=None, region=None):
         super().__init__(client)
         self._lazy_load_all = lambda *a: None
@@ -18,7 +18,9 @@ class Location(JsonSerialisable):
             self['region'] = region
 
 
-class Region(JsonSerialisable):
+class Region(Model):
+    id_keys = ['name']
+
     def __init__(self, client, dom):
         super().__init__(client)
         self['name'] = dom.find('h2').get_text(strip=True)
@@ -29,7 +31,8 @@ class Region(JsonSerialisable):
         return self['countries']
 
 
-class Country(JsonSerialisable):
+class Country(Model):
+    id_keys = ['name']
 
     def __init__(self, client, region, a):
         super().__init__(client)
@@ -95,9 +98,13 @@ class Country(JsonSerialisable):
 
         return self._client.query(url, args)
 
+    def __repr__(self):
+        return object.__repr__(self)
 
-class Place(JsonSerialisable):
+
+class Place(Model):
     lazy_load_facets = ['datePublished', 'dateModified', 'categories']
+    id_keys = ['title']
 
     def __init__(self, client, title, description, location, href, country=None, category=None):
         super().__init__(client)
@@ -153,7 +160,8 @@ class Place(JsonSerialisable):
         ]
 
 
-class Category(JsonSerialisable):
+class Category(Model):
+    id_keys = ['name']
 
     def __init__(self, client, name):
         super().__init__(client)
