@@ -6,11 +6,11 @@ print(destination)
 country = destination.countries[0]
 
 place = next(country.places)
-print(place)
+print(place.load())
 
 print(place.categories)
 
-films = [c for c in place.categories if c['name'] == 'rocks']
+films = [c for c in place.categories if c.name == 'rocks']
 
 print(films[0])
 

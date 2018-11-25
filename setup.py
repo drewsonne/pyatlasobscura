@@ -10,5 +10,8 @@ setup(
     author='Drew J. Sonne',
     author_email='drew.sonne@gmail.com',
     description='',
-    install_requires=['requests', 'beautifulsoup4']
+    install_requires=['requests', 'beautifulsoup4','latlon'],
+    extras_require={
+        'pandas': ['pandas']
+    }
 )
