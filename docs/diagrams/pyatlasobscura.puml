@@ -14,10 +14,12 @@ class pyatlasobscura.Client {
     + find_country(country_name: str) : pyatlasobscura.models.destination.Region
 }
 
-abstract class pyatlasobscura.models.JsonSerialisable {
+abstract class pyatlasobscura.models.Model {
     + __init__(client : pyatlasobscura.Client)
     + load()
 }
+
+
 
 class pyatlasobscura.models.destinations.Location {
     + name : str
@@ -47,17 +49,18 @@ class pyatlasobscura.models.destinations.Place {
     + nearby_places: .Location[]
 }
 
-class pyatlasobscura.models.destinations.Category {
+class pyatlasobscura.models.destinations.query.Category {
     + name : str
     + places : .Place[]
 }
 
 module *-- pyatlasobscura.Client
 
-pyatlasobscura.models.JsonSerialisable <|-- pyatlasobscura.models.destinations.Region
-pyatlasobscura.models.JsonSerialisable <|-- pyatlasobscura.models.destinations.Country
-pyatlasobscura.models.JsonSerialisable <|-- pyatlasobscura.models.destinations.Place
-pyatlasobscura.models.JsonSerialisable <|-- pyatlasobscura.models.destinations.Location
+pyatlasobscura.models.Model <|-- pyatlasobscura.models.destinations.Region
+pyatlasobscura.models.Model <|-- pyatlasobscura.models.destinations.Country
+pyatlasobscura.models.Model <|-- pyatlasobscura.models.destinations.Place
+pyatlasobscura.models.Model <|-- pyatlasobscura.models.destinations.Location
+pyatlasobscura.models.Model <|-- pyatlasobscura.models.destinations.query.Category
 
 pyatlasobscura.models.destinations.Region *- pyatlasobscura.models.destinations.Country
 pyatlasobscura.models.destinations.Country *- pyatlasobscura.models.destinations.Place
