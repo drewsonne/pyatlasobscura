@@ -20,8 +20,7 @@ class BaseClient(ABC):
         def query_callback():
             body = requests.get(self._build_url(path), params=args)
             return BeautifulSoup(
-                markup=body.content.decode('utf-8', 'ignore'),
-                features='html.parser'
+                markup=body.content.decode("utf-8", "ignore"), features="html.parser"
             )
 
         try:
@@ -29,9 +28,7 @@ class BaseClient(ABC):
             key_encoded = key.encode()
             key_hash = hashlib.md5(key_encoded).hexdigest()
 
-            query_callback = cache(key_hash)(
-                query_callback
-            )
+            query_callback = cache(key_hash)(query_callback)
         except Exception as e:
             pass
 

@@ -10,7 +10,8 @@ class Model(ABC):
         super().__init__()
 
     @abstractmethod
-    def _lazy_load_all(self): ...
+    def _lazy_load_all(self):
+        ...
 
     def load(self):
         self._lazy_load_all()
@@ -20,9 +21,8 @@ class Model(ABC):
         return "<{module_name}.{class_name}({keys}) object at {hash}>".format(
             module_name=self.__module__,
             class_name=self.__class__.__name__,
-            keys=','.join(map(
-                lambda k: k + '=' + json.dumps(getattr(self, k)),
-                self.id_keys
-            )),
-            hash=hex(id(self))
+            keys=",".join(
+                map(lambda k: k + "=" + json.dumps(getattr(self, k)), self.id_keys)
+            ),
+            hash=hex(id(self)),
         )

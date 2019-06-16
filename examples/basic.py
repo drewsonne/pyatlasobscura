@@ -10,7 +10,7 @@ print(place.load())
 
 print(place.categories)
 
-royalty = [c for c in place.categories if c.name == 'royalty']
+royalty = [c for c in place.categories if c.name == "royalty"]
 
 if not royalty:
     # As the atlas obscura data set changes,the example may not always work

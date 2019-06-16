@@ -14,10 +14,11 @@ class Client(BaseClient):
 
     def search_category(self, category):
         from pyatlasobscura import Category
-        if 'categories' not in self._cache:
-            self._cache['categories'] = {}
-        if category in self._cache['categories']:
-            return self._cache['categories']
+
+        if "categories" not in self._cache:
+            self._cache["categories"] = {}
+        if category in self._cache["categories"]:
+            return self._cache["categories"]
 
         cache = []
         for location in Category(self, category):
@@ -25,21 +26,22 @@ class Client(BaseClient):
             yield location
 
         # Don't store until we have the full set
-        self._cache['categories'][category] = cache
+        self._cache["categories"][category] = cache
 
     def search_location(self, location, nearby):
         from pyatlasobscura import Point
+
         return Point(self, location, nearby)
 
-    def regions(self) -> Generator['pyatlasobscura.Region', None, None]:
+    def regions(self) -> Generator["pyatlasobscura.Region", None, None]:
         from pyatlasobscura import Region
-        if 'regions' not in self._cache:
-            body = self.query('destinations')
-            regions = body. \
-                findAll('li', {'class': 'global-region-item'})
-            self._cache['regions'] = regions
+
+        if "regions" not in self._cache:
+            body = self.query("destinations")
+            regions = body.findAll("li", {"class": "global-region-item"})
+            self._cache["regions"] = regions
         else:
-            regions = self._cache['regions']
+            regions = self._cache["regions"]
         for region in regions:
             yield Region(self, region)
 
