@@ -12,6 +12,10 @@ pip install pyatlasobscura
 
 ```python
 import pyatlasobscura as ao
+from pyatlasobscura import SearchType
+
+for location in ao.search(SearchType.CATEGORY, 'books'):
+    print(location.title)
 
 destination = next(ao.destinations())
 
