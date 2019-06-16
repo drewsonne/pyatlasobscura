@@ -1,18 +1,11 @@
-import hashlib
 from enum import auto, Enum
 from typing import Generator
 
-import requests
-from bs4 import BeautifulSoup
-
+import pyatlasobscura
 from pyatlasobscura.cache import cache
+from pyatlasobscura.client import Client
 from pyatlasobscura.models.destinations import Region
 from pyatlasobscura.models.query import Category, Point
-
-
-class URL(str): pass
-
-
 
 
 def destinations() -> Generator[Region, None, None]:

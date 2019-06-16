@@ -1,14 +1,18 @@
 language: python
 python:
-- '3.6'
-- '3.7'
-- 'pypy3'
+  - '3.6'
+  - '3.7'
+  - 'pypy3'
 
 matrix:
   fast_finish: true
 
 install:
-- pip install -e .
+  - pip install -e .
+  - pip install black
 
 script:
+  - black examples
+  - black pyatlasobscura
+  - black test
   - pytest --verbose
