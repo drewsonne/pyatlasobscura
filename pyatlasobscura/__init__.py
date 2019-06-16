@@ -1,11 +1,8 @@
 from enum import auto, Enum
 from typing import Generator
 
-import pyatlasobscura
-from pyatlasobscura.cache import cache
-from pyatlasobscura.client import Client
 from pyatlasobscura.models.destinations import Region
-from pyatlasobscura.models.query import Category, Point
+from pyatlasobscura.client import Client
 
 
 def destinations() -> Generator[Region, None, None]:
