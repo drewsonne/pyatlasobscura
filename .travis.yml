@@ -11,7 +11,5 @@ install:
   - pip install black
 
 script:
-  - black examples
-  - black pyatlasobscura
-  - black test
+  - black --check --diff examples pyatlasobscura test
   - pytest --verbose
