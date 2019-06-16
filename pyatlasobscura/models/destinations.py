@@ -25,6 +25,8 @@ class Region(Model):
         self.countries = [Country(client, self, d) for d in dom.findAll('a', {'class': 'detail-md'})]
         super().__init__(client)
 
+    def _lazy_load_all(self): ...
+
 
 class Country(Model):
     id_keys = ['name']
@@ -35,6 +37,9 @@ class Country(Model):
         self.region = region.name
         self._href = a['href']
         self._sort_by_recent = False
+
+    def _lazy_load_all(self):
+        ...
 
     @property
     def places(self):
@@ -118,7 +123,9 @@ class Place(Model):
         self._load_datePublished = self._load_tags
         self._load_dateModified = self._load_tags
         self._load_categories = self._load_tags
-        self._lazy_load_all = self._load_tags
+
+    def _lazy_load_all(self):
+        self._load_tags()
 
     def _load_place(self):
         from pyatlasobscura.models.query import Category

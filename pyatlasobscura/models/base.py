@@ -1,12 +1,16 @@
+from abc import ABC, abstractmethod
 import json
 
 
-class Model(object):
+class Model(ABC):
     id_keys = []
 
     def __init__(self, client):
         self._client = client
         super().__init__()
+
+    @abstractmethod
+    def _lazy_load_all(self): ...
 
     def load(self):
         self._lazy_load_all()

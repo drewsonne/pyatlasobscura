@@ -23,4 +23,5 @@ class TestClient(TestCase):
         country = destination.countries[0]
 
     def test_find_country(self):
-        country = ao._client.find_country()
+        country = ao.Client.default().find_country('Australia')
+        self.assertEqual(country.name, 'Australia')

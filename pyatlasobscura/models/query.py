@@ -52,6 +52,9 @@ class Category(Model):
     def __iter__(self):
         return self.places()
 
+    def _lazy_load_all(self):
+        ...
+
     def places(self, page_num='1'):
 
         for page_num in self._get_pages(page_num):

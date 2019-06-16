@@ -10,10 +10,16 @@ print(place.load())
 
 print(place.categories)
 
-films = [c for c in place.categories if c.name == 'rocks']
+royalty = [c for c in place.categories if c.name == 'royalty']
 
-print(films[0])
+if not royalty:
+    # As the atlas obscura data set changes,the example may not always work
+    royalty = place.categories[0]
 
-film_attraction = next(films[0].places())
+royalty = ao.search()
 
-print(film_attraction.load())
+print(f"Category: '{royalty[0].name}'")
+
+royal_attraction = next(royalty[0].places())
+
+print(f"Attraction name: {royal_attraction.load().title}")
