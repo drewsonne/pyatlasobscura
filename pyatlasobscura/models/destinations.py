@@ -19,8 +19,8 @@ class Location(Model):
 
 class Region(Model):
     id_keys = ["name"]
-    attributes = ['name']
-    children = ['countries']
+    attributes = ["name"]
+    children = ["countries"]
 
     def __init__(self, client, dom):
         self.name = dom.find("h2").get_text(strip=True)
@@ -35,7 +35,7 @@ class Region(Model):
 
 class Country(Model):
     id_keys = ["name"]
-    attributes = ['name', 'region']
+    attributes = ["name", "region"]
 
     def __init__(self, client, region, a):
         super().__init__(client)
@@ -86,8 +86,8 @@ class Country(Model):
     def _get_places(self, page):
         return (
             self._get_place_list(page)
-                .find("section", {"class": "geo-places"})
-                .findAll("a", {"class": "content-card"})
+            .find("section", {"class": "geo-places"})
+            .findAll("a", {"class": "content-card"})
         )
 
     def _get_pages(self, page):
@@ -114,11 +114,11 @@ class Country(Model):
 class Place(Model):
     lazy_load_facets = ["datePublished", "dateModified", "categories"]
     id_keys = ["title"]
-    attributes = ['title', 'description', 'location', 'href', 'country', 'category']
-    children = ['nearby_places']
+    attributes = ["title", "description", "location", "href", "country", "category"]
+    children = ["nearby_places"]
 
     def __init__(
-            self, client, title, description, location, href, country=None, category=None
+        self, client, title, description, location, href, country=None, category=None
     ):
         super().__init__(client)
         self.title = title
