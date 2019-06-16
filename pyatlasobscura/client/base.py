@@ -24,11 +24,7 @@ class BaseClient(ABC):
             )
 
         try:
-            query_callback = cache(
-                hashlib.md5(
-                    f"{path}{args}".encode()
-                ).hexdigest()
-            )(
+            query_callback = cache(hashlib.md5(f"{path}{args}".encode()).hexdigest())(
                 query_callback
             )
         except Exception as e:

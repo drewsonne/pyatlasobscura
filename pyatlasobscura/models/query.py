@@ -75,14 +75,10 @@ class Category(Model):
                 self._client,
                 category=self,
                 title=place.find("h3").find("span").get_text(strip=True),
-                description=place.find(
-                    "div",
-                    {"class": "subtitle-sm"}
-                ).get_text(strip=True),
-                href=place.find(
-                    "a",
-                    {"class": "content-card"}
-                )["href"],
+                description=place.find("div", {"class": "subtitle-sm"}).get_text(
+                    strip=True
+                ),
+                href=place.find("a", {"class": "content-card"})["href"],
                 location={
                     "name": place.find(
                         "div", {"class": "place-card-location"}
@@ -96,18 +92,9 @@ class Category(Model):
         if pages is None:
             return "1"
         spans = pages.findAll("span")
-        pages = [
-            p.get_text(strip=True)
-            for p
-            in spans
-        ]
+        pages = [p.get_text(strip=True) for p in spans]
 
-        return [
-            page
-            for page
-            in pages
-            if len(page)
-        ]
+        return [page for page in pages if len(page)]
 
     def _get_places(self, page):
         grid = self._get_place_list(page).find(

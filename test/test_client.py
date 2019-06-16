@@ -27,9 +27,6 @@ class TestClient(TestCase):
         self.assertEqual(country.name, "Australia")
 
     def test_search(self):
-        result = ao.search(
-            ao.SearchType.CATEGORY,
-            'books'
-        )
+        result = ao.search(ao.SearchType.CATEGORY, "books")
         results = list(result)
         print(results)
