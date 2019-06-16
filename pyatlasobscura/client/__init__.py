@@ -1,6 +1,7 @@
 from typing import Generator
 
 from pyatlasobscura.client.base import BaseClient
+from pyatlasobscura.models.query import Category, Point
 
 
 class Client(BaseClient):
@@ -13,7 +14,6 @@ class Client(BaseClient):
         return cls._DEFAULT
 
     def search_category(self, category):
-        from pyatlasobscura import Category
 
         if "categories" not in self._cache:
             self._cache["categories"] = {}
@@ -29,8 +29,6 @@ class Client(BaseClient):
         self._cache["categories"][category] = cache
 
     def search_location(self, location, nearby):
-        from pyatlasobscura import Point
-
         return Point(self, location, nearby)
 
     def regions(self) -> Generator["pyatlasobscura.Region", None, None]:

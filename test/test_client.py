@@ -25,3 +25,11 @@ class TestClient(TestCase):
     def test_find_country(self):
         country = ao.Client.default().find_country("Australia")
         self.assertEqual(country.name, "Australia")
+
+    def test_search(self):
+        result = ao.search(
+            ao.SearchType.CATEGORY,
+            'books'
+        )
+        results = list(result)
+        print(results)

@@ -4,7 +4,7 @@ from abc import ABC
 import requests
 from bs4 import BeautifulSoup
 
-from pyatlasobscura import cache
+from pyatlasobscura.cache import cache
 
 
 class BaseClient(ABC):
@@ -24,15 +24,17 @@ class BaseClient(ABC):
             )
 
         try:
-            key = path + str(args)
-            key_encoded = key.encode()
-            key_hash = hashlib.md5(key_encoded).hexdigest()
-
-            query_callback = cache(key_hash)(query_callback)
+            query_callback = cache(
+                hashlib.md5(
+                    f"{path}{args}".encode()
+                ).hexdigest()
+            )(
+                query_callback
+            )
         except Exception as e:
             pass
-
-        return query_callback()
+        finally:
+            return query_callback()
 
     def _build_url(self, path: str):
-        return self._endpoint + path
+        return f"{self._endpoint}{path}"

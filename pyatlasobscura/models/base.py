@@ -22,7 +22,7 @@ class Model(ABC):
             module_name=self.__module__,
             class_name=self.__class__.__name__,
             keys=",".join(
-                map(lambda k: k + "=" + json.dumps(getattr(self, k)), self.id_keys)
+                map(lambda k: k + "=" + json.dumps(getattr(self, k), ensure_ascii=False), self.id_keys)
             ),
             hash=hex(id(self)),
         )
