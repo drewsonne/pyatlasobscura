@@ -13,6 +13,14 @@ class URL(str): pass
 
 
 class Client(object):
+    _DEFAULT = None
+
+    @classmethod
+    def default(cls):
+        if cls._DEFAULT is None:
+            cls._DEFAULT = cls()
+        return cls._DEFAULT
+
     _endpoint = "https://www.atlasobscura.com/"
 
     def __init__(self):
@@ -78,15 +86,12 @@ class Client(object):
                     return country
 
 
-_client = Client()
-
-
 def destinations() -> Generator[Region, None, None]:
-    return _client.regions()
+    return Client.default().regions()
 
 
 def search(category=None, location=None, nearby=True):
     if category is not None:
-        return _client.search_category(category)
+        return Client.default().search_category(category)
     if location is not None:
-        return _client.search_location(location, nearby)
+        return Client.default().search_location(location, nearby)

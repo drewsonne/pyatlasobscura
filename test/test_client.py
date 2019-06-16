@@ -21,3 +21,6 @@ class TestClient(TestCase):
     def test_arbitrary_country(self):
         destination = next(ao.destinations())
         country = destination.countries[0]
+
+    def test_find_country(self):
+        country = ao._client.find_country()
