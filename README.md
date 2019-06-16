@@ -6,6 +6,10 @@ Library to interact with the Atlas Obscura website
 
 ## Quickstart
 
+```bash
+pip install pyatlasobscura
+```
+
 ```python
 import pyatlasobscura as ao
 
